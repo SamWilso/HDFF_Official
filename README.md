@@ -58,7 +58,7 @@ Please download the [Textures](https://www.robots.ox.ac.uk/~vgg/data/dtd/) and [
 ## Models
 **Pre-trained Models**
 
-We provide the pretrained models we conducted our experiments on [here](https://www.dropbox.com/home/HDFF_Models). Please download and extract these checkpoints into the *./ckpts/* folder. Ensemble models will be available upon completion of the ensemble code. 
+We provide the pretrained models we conducted our experiments on [here](https://www.dropbox.com/sh/51luvqha9qpw57d/AAAtGQ9fYF84f7y19syE0R6Xa). Please download and extract these checkpoints into the *./ckpts/* folder. Ensemble models will be available upon completion of the ensemble code. 
 
 **Training Your Own Models**
 
@@ -72,7 +72,7 @@ Once everything has been setup, evaluating HDFF against all of the OOD datasets 
 python inference.py --batch bSize --modelpath path2Model --datadir path2Data --pooling poolingType
 ```
 where:
-* `bSize` is the size of a batch as an integer.
+* `bSize` is the size of a batch as an integer. Must be greater than 1.
 * `path2Model` is the path to one of the models - currently this will only target the first "Normal" or "1D" model in the directory as these were the models used to produce the results in the paper.
 * `path2Data` is the path to the data directory.
 * `poolingType` defines the type of pooling to be used by the feature monitor. This can be a string of either "max" or "avg".
@@ -97,9 +97,9 @@ class FeatureMonitor():
             if isinstance(m, nn.Conv2d):
                 modules.append(m)
         
-		for idx, m in enumerate(modules):
-			hook_fn = partial(self.__hook, idx=idx)
-			m.register_forward_hook(hook_fn)
+	for idx, m in enumerate(modules):
+		hook_fn = partial(self.__hook, idx=idx)
+		m.register_forward_hook(hook_fn)
     ... 
 ```
 
